@@ -1,0 +1,257 @@
+{
+    "name": "pipeline1",
+    "properties": {
+        "activities": [
+            {
+                "name": "Copy raw data",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "DelimitedTextSource",
+                        "storeSettings": {
+                            "type": "AzureBlobStorageReadSettings",
+                            "recursive": true,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextReadSettings"
+                        }
+                    },
+                    "sink": {
+                        "type": "SqlDWSink",
+                        "allowCopyCommand": true
+                    },
+                    "enableStaging": false,
+                    "translator": {
+                        "type": "TabularTranslator",
+                        "mappings": [
+                            {
+                                "source": {
+                                    "name": "id",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "ID",
+                                    "type": "int"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "name",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "NAME",
+                                    "type": "varchar"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "host_id",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "HOST_ID",
+                                    "type": "int"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "host_name",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "HOST_NAME",
+                                    "type": "varchar"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "neighbourhood_group",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "NEIGHBOURHOOD_GROUP",
+                                    "type": "varchar"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "neighbourhood",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "NEIGHBOURHOOD",
+                                    "type": "varchar"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "latitude",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "LATITUDE",
+                                    "type": "float"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "longitude",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "LONGITUDE",
+                                    "type": "float"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "room_type",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "ROOM_TYPE",
+                                    "type": "varchar"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "price",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "PRICE",
+                                    "type": "float"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "minimum_nights",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "MINIMUM_NIGHTS",
+                                    "type": "int"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "number_of_reviews",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "NUMBER_OF_REVIEWS",
+                                    "type": "int"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "last_review",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "LAST_REVIEW",
+                                    "type": "date"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "reviews_per_month",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "REVIEWS_PER_MONTH",
+                                    "type": "float"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "calculated_host_listings_count",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "CALCULATED_HOST_LISTINGS_COUNT",
+                                    "type": "float"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "name": "availability_365",
+                                    "type": "String"
+                                },
+                                "sink": {
+                                    "name": "AVAILABILITY_365",
+                                    "type": "float"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "inputs": [
+                    {
+                        "referenceName": "DelimitedText1",
+                        "type": "DatasetReference"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "referenceName": "AzureSynapseAnalyticsTable1_raw",
+                        "type": "DatasetReference"
+                    }
+                ]
+            },
+            {
+                "name": "Data flow1",
+                "type": "ExecuteDataFlow",
+                "dependsOn": [
+                    {
+                        "activity": "Copy raw data",
+                        "dependencyConditions": [
+                            "Completed"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 1,
+                    "retryIntervalInSeconds": 60,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "dataflow": {
+                        "referenceName": "dataflow1",
+                        "type": "DataFlowReference"
+                    },
+                    "staging": {
+                        "linkedService": {
+                            "referenceName": "AzureBlobStorage1",
+                            "type": "LinkedServiceReference"
+                        },
+                        "folderPath": "data"
+                    },
+                    "compute": {
+                        "coreCount": 8,
+                        "computeType": "General"
+                    },
+                    "traceLevel": "Fine",
+                    "sourceStagingConcurrency": 1
+                }
+            }
+        ],
+        "annotations": [],
+        "lastPublishTime": "2024-10-13T11:19:26Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

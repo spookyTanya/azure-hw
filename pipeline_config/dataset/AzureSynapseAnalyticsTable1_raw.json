@@ -1,0 +1,92 @@
+{
+    "name": "AzureSynapseAnalyticsTable1_raw",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "AzureSynapseAnalytics1",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "AzureSqlDWTable",
+        "schema": [
+            {
+                "name": "ID",
+                "type": "int",
+                "precision": 10
+            },
+            {
+                "name": "NAME",
+                "type": "varchar"
+            },
+            {
+                "name": "HOST_ID",
+                "type": "int",
+                "precision": 10
+            },
+            {
+                "name": "HOST_NAME",
+                "type": "varchar"
+            },
+            {
+                "name": "NEIGHBOURHOOD_GROUP",
+                "type": "varchar"
+            },
+            {
+                "name": "NEIGHBOURHOOD",
+                "type": "varchar"
+            },
+            {
+                "name": "LATITUDE",
+                "type": "float",
+                "precision": 15
+            },
+            {
+                "name": "LONGITUDE",
+                "type": "float",
+                "precision": 15
+            },
+            {
+                "name": "ROOM_TYPE",
+                "type": "varchar"
+            },
+            {
+                "name": "PRICE",
+                "type": "float",
+                "precision": 15
+            },
+            {
+                "name": "MINIMUM_NIGHTS",
+                "type": "int",
+                "precision": 10
+            },
+            {
+                "name": "NUMBER_OF_REVIEWS",
+                "type": "int",
+                "precision": 10
+            },
+            {
+                "name": "LAST_REVIEW",
+                "type": "date"
+            },
+            {
+                "name": "REVIEWS_PER_MONTH",
+                "type": "float",
+                "precision": 15
+            },
+            {
+                "name": "CALCULATED_HOST_LISTINGS_COUNT",
+                "type": "float",
+                "precision": 15
+            },
+            {
+                "name": "AVAILABILITY_365",
+                "type": "float",
+                "precision": 15
+            }
+        ],
+        "typeProperties": {
+            "schema": "dbo",
+            "table": "raw_data"
+        }
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}

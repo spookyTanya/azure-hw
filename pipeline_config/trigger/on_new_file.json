@@ -1,0 +1,24 @@
+{
+    "name": "on_new_file",
+    "properties": {
+        "annotations": [],
+        "runtimeState": "Stopped",
+        "pipelines": [
+            {
+                "pipelineReference": {
+                    "referenceName": "pipeline1",
+                    "type": "PipelineReference"
+                }
+            }
+        ],
+        "type": "BlobEventsTrigger",
+        "typeProperties": {
+            "blobPathBeginsWith": "/data/blobs/",
+            "ignoreEmptyBlobs": true,
+            "scope": "/subscriptions/7c9df93c-4911-497f-a070-c4ec0dc5ae14/resourceGroups/my-resources/providers/Microsoft.Storage/storageAccounts/storageaccouttania",
+            "events": [
+                "Microsoft.Storage.BlobCreated"
+            ]
+        }
+    }
+}

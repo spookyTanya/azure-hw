@@ -1,0 +1,6 @@
+selected resource name:		pipeline1
+selected resource type:		pipeline
+factory name:			taniadatafactory
+factory location:		centralus
+subscription id:		7c9df93c-4911-497f-a070-c4ec0dc5ae14
+time of download (UTC):		Sun, 13 Oct 2024 19:01:50 GMT
